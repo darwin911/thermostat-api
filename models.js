@@ -34,7 +34,7 @@ const User = sequelize.define("users", {
   }
 });
 
-const Thermostat = sequelize.define('thermostats', {
+const Thermostat = sequelize.define("thermostats", {
   heating: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
@@ -52,7 +52,21 @@ const Thermostat = sequelize.define('thermostats', {
   },
   temperature: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: false
   }
-})
+});
 
+User.hasOne(Thermostat, {
+  onDelete: "cascade"
+});
+Thermostat.belongsTo(User, {
+  foreignKey: {
+    allowNull: false
+  }
+});
+
+module.exports = {
+  User,
+  Thermostat,
+  sequelize
+}
