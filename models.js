@@ -27,6 +27,7 @@ const User = sequelize.define("users", {
   },
   email: {
     type: Sequelize.STRING,
+    unique: true,
     allowNull: false
   },
   password_digest: {
@@ -69,4 +70,4 @@ module.exports = {
   User,
   Thermostat,
   sequelize
-}
+};
