@@ -1,7 +1,8 @@
 import React from "react";
 import "./App.css";
 import Register from "./components/Register";
-import { register } from "./services/api-helper";
+import Login from "./components/Login";
+import { register, login } from "./services/api-helper";
 // import "semantic-ui-css/semantic.min.css";
 
 class App extends React.Component {
@@ -10,6 +11,7 @@ class App extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
 
     this.state = {
       isLoggedin: false,
@@ -38,11 +40,10 @@ class App extends React.Component {
   }
 
   async handleSubmit(e) {
-    const { formData } = this.state;
     e.preventDefault();
     try {
+      const { formData } = this.state;
       const resp = await register(formData);
-      console.log(resp);
       if (resp.error) return;
       localStorage.setItem("token", resp.token);
       this.setState({
@@ -64,6 +65,29 @@ class App extends React.Component {
     }
   }
 
+  async handleLogin(e) {
+    e.preventDefault();
+    try {
+      const { formData } = this.state;
+      const resp = await login(formData)
+      localStorage.setItem("token", resp.token);
+      this.setState({
+        isLoggedIn: true,
+        currentUser: {
+          name: resp.userData.name,
+          emai: resp.userData.email,
+          id: resp.userData.id
+        },
+        formData: {
+          email: "",
+          password: "",
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   render() {
     const { formData, isLoggedIn } = this.state;
     return (
@@ -72,11 +96,18 @@ class App extends React.Component {
           <h1>Thermostat API</h1>
         </header>
         {!isLoggedIn && (
-          <Register
-            formData={formData}
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-          />
+          <>
+            <Login
+              formData={formData}
+              handleChange={this.handleChange}
+              handleLogin={this.handleLogin}
+            />
+            <Register
+              formData={formData}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+            />
+          </>
         )}
       </div>
     );

@@ -1,9 +1,9 @@
 import React from "react";
 // import { Button, Form, Input } from "semantic-ui-react";
 
-const Login = ({ handleChange, handleSubmit, formData }) => {
+const Login = ({ handleChange, handleLogin, formData }) => {
   return (
-    <form className="register" onSubmit={handleSubmit}>
+    <form className="register" onSubmit={handleLogin}>
       <input
         type="email"
         name="email"
