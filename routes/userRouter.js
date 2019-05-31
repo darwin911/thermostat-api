@@ -7,30 +7,24 @@ const userRouter = express.Router();
 const code = "ilovebikes";
 
 userRouter.post("/register", async (req, res) => {
-  try {
-    const { name, email, password, verificationCode } = req.body;
-    if (verificationCode === code) {
-      const emailExists = await User.findOne({
-        where: { email: email }
-      });
-  
-      if (emailExists) {
-        return res.status(409).send("This email is already in use.");
-      }
-
-      const password_digest = await hash(password);
-      const user = User.create({
-        name,
-        email,
-        password_digest
-      });
-      res.json({ currentUser: { name, email } });
-    } else {
-      console.log("Verification code is invalid");
-      res.json({ err: "Verification code is invalid" });
+  const { name, email, password, verificationCode } = req.body;
+  // only create user if verification code matches
+  if (verificationCode === code) {
+    const password_digest = await hash(password);
+    const user = await User.create({
+      name,
+      email,
+      password_digest
+    }).catch(err => console.error(err));
+    const userData = {
+      id: user.id,
+      name: user.name,
+      email: user.email
     }
-  } catch (error) {
-    console.error(error);
+    const token = await encode(userData);
+    res.json({ userData, token });
+  } else {
+    res.json({ error: "invalid verification code" });
   }
 });
 
