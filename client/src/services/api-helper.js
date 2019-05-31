@@ -1,8 +1,11 @@
 import axios from 'axios';
 
-const test = async () => {
-  const resp = await axios('http://localhost:3000');
-  return resp
+const api = axios;
+const baseURL = "http://localhost:3001"
+
+const register = async (data) => {
+  const resp = await api.post(`${baseURL}/users/register`, data);
+  return resp.data
 }
 
-export { test };
+export { register };
