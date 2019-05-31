@@ -8,4 +8,9 @@ const register = async (data) => {
   return resp.data
 }
 
-export { register };
+const login = async (data) => {
+  const resp = await api.post(`${baseURL}/users/login`, data);
+  return resp.data
+}
+
+export { register, login };
