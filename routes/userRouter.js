@@ -1,5 +1,5 @@
 const express = require("express");
-const { User, Entry } = require("../models");
+const { User, Thermostat } = require("../models");
 const { hash, compare, encode, verify } = require("../auth");
 
 const userRouter = express.Router();
@@ -24,6 +24,9 @@ userRouter.post("/register", async (req, res) => {
       name: user.name,
       email: user.email
     };
+    // creates a default thermostat for new user
+    const thermostat = await Thermostat.create()
+    thermostat.setUser(user)
     // encodes userData
     const token = await encode(userData);
     // returns userData for frontEnd, and token to be stored in localStorage
