@@ -19,3 +19,40 @@ if (process.env.DATABASE_URL) {
     }
   });
 }
+
+const User = sequelize.define("users", {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  password_digest: {
+    type: Sequelize.STRING
+  }
+});
+
+const Thermostat = sequelize.define('thermostats', {
+  heating: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
+  },
+  cooling: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
+  },
+  idle: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true,
+    allowNull: false
+  },
+  temperature: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  }
+})
+
