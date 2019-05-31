@@ -3,6 +3,8 @@ import "./App.css";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import { register, login } from "./services/api-helper";
+import decode from "jwt-decode";
+import { withRouter } from "react-router-dom";
 // import "semantic-ui-css/semantic.min.css";
 
 class App extends React.Component {
@@ -27,6 +29,16 @@ class App extends React.Component {
         verificationCode: ""
       }
     };
+  }
+
+  async componentDidMount() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const currentUser = await decode(token);
+      this.setState({ currentUser, isLoggedIn: true });
+    } else {
+      this.props.history.push("/");
+    }
   }
 
   handleChange(e) {
@@ -69,7 +81,7 @@ class App extends React.Component {
     e.preventDefault();
     try {
       const { formData } = this.state;
-      const resp = await login(formData)
+      const resp = await login(formData);
       localStorage.setItem("token", resp.token);
       this.setState({
         isLoggedIn: true,
@@ -80,7 +92,7 @@ class App extends React.Component {
         },
         formData: {
           email: "",
-          password: "",
+          password: ""
         }
       });
     } catch (error) {
@@ -95,7 +107,7 @@ class App extends React.Component {
         <header>
           <h1>Thermostat API</h1>
         </header>
-        {!isLoggedIn && (
+        {!isLoggedIn ? (
           <>
             <Login
               formData={formData}
@@ -108,10 +120,12 @@ class App extends React.Component {
               handleSubmit={this.handleSubmit}
             />
           </>
+        ) : (
+          <p>Welcome!</p>
         )}
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
