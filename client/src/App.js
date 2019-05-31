@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import Register from "./components/Register";
+import { register } from './services/api-helper';
 // import "semantic-ui-css/semantic.min.css";
 
 class App extends React.Component {
@@ -30,9 +31,11 @@ class App extends React.Component {
     }));
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
+    const { formData } = this.state
     e.preventDefault();
-    console.log("handleSubmit");
+    const resp = await register(formData)
+    console.log(resp)
   }
 
   render() {
