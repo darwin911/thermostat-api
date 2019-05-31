@@ -48,11 +48,17 @@ const Thermostat = sequelize.define("thermostats", {
   },
   idle: {
     type: Sequelize.BOOLEAN,
-    defaultValue: true,
+    defaultValue: false,
+    allowNull: false
+  },
+  on: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
     allowNull: false
   },
   temperature: {
     type: Sequelize.INTEGER,
+    defaultValue: 0,
     allowNull: false
   }
 });
