@@ -11,7 +11,7 @@ if (process.env.DATABASE_URL) {
   });
 } else {
   sequelize = new Sequelize({
-    database: "tracker",
+    database: "thermostat",
     dialect: "postgresql",
     operatorAliases: false,
     define: {
