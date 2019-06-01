@@ -3,7 +3,7 @@ import "./App.css";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Thermostat from "./components/Thermostat";
-import { register, login } from "./services/api-helper";
+import { register, login, setTemp } from "./services/api-helper";
 import decode from "jwt-decode";
 import { withRouter } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
@@ -32,13 +32,15 @@ class App extends React.Component {
         verificationCode: ""
       },
       thermostat: {
-        temp: 68,
+        userId: "",
+        id: "",
+        temp: "",
         isHeating: false,
         isCooling: false,
         isOn: false,
-        isIdle: false,
-        roomTemp: 74
-      }
+        isIdle: false
+      },
+      roomTemp: 74
     };
   }
 
@@ -47,6 +49,9 @@ class App extends React.Component {
     if (token) {
       const currentUser = await decode(token);
       this.setState({ currentUser, isLoggedIn: true });
+      const thermostat = await setTemp({ userId: currentUser.id });
+      console.log(thermostat);
+      this.setState({ thermostat });
     } else {
       this.props.history.push("/");
     }
