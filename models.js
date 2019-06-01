@@ -58,7 +58,7 @@ const Thermostat = sequelize.define("thermostats", {
   },
   temperature: {
     type: Sequelize.INTEGER,
-    defaultValue: 0,
+    defaultValue: 68,
     allowNull: false
   }
 });
