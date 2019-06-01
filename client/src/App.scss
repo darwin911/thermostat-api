@@ -12,7 +12,16 @@ body {
 
 .App {
   text-align: center;
+  min-height: 100vh;
+  background: #f9f8eb;
 }
+
+header { 
+  padding: 2rem 0;
+  h1 {
+    margin: 0;
+  }
+ }
 
 .register {
   display: flex;
@@ -28,4 +37,50 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   padding: 0.5rem;
+}
+
+.thermostat {
+  margin: 2rem auto;
+  max-width: 500px;
+}
+
+.temp {
+  width: 250px;
+  height: auto;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: inline-block;
+  font-size: 5rem;
+  font-weight: bold;
+  background: black;
+  color: white;
+  margin: 0 auto 3rem;
+  p {
+    line-height: 5rem;
+    position: relative;
+    &::after {
+      content: "\00b0";
+      position: absolute;
+    }
+  }
+}
+
+.controls {
+  background: pink;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.heating, .cooling {
+  font-weight: bold;
+}
+
+.heating {
+  color: red !important;
+}
+
+.cooling {
+  color: blue !important;
 }

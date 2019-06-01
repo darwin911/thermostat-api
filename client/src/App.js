@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Thermostat from "./components/Thermostat";
 import { register, login } from "./services/api-helper";
 import decode from "jwt-decode";
 import { withRouter } from "react-router-dom";
@@ -14,6 +15,8 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.toggleHeating = this.toggleHeating.bind(this);
+    this.toggleCooling = this.toggleCooling.bind(this);
 
     this.state = {
       isLoggedin: false,
@@ -29,7 +32,7 @@ class App extends React.Component {
         verificationCode: ""
       },
       thermostat: {
-        temp: null,
+        temp: 68,
         isHeating: false,
         isCooling: false,
         isOn: false,
@@ -108,8 +111,26 @@ class App extends React.Component {
     }
   }
 
+  toggleHeating() {
+    this.setState(prevState => ({
+      thermostat: {
+        ...prevState.thermostat,
+        isHeating: !this.state.thermostat.isHeating
+      }
+    }));
+  }
+
+  toggleCooling() {
+    this.setState(prevState => ({
+      thermostat: {
+        ...prevState.thermostat,
+        isCooling: !this.state.thermostat.isCooling
+      }
+    }));
+  }
+
   render() {
-    const { formData, isLoggedIn, currentUser } = this.state;
+    const { formData, isLoggedIn, currentUser, thermostat } = this.state;
     return (
       <div className="App">
         <header>
@@ -129,7 +150,14 @@ class App extends React.Component {
             />
           </>
         ) : (
-          <p>Welcome {currentUser.name.split(" ")[0]}!</p>
+          <main>
+            <p>Welcome {currentUser.name.split(" ")[0]}!</p>
+            <Thermostat
+              thermostat={thermostat}
+              toggleHeating={this.toggleHeating}
+              toggleCooling={this.toggleCooling}
+            />
+          </main>
         )}
       </div>
     );
