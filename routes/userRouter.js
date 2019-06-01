@@ -25,8 +25,8 @@ userRouter.post("/register", async (req, res) => {
       email: user.email
     };
     // creates a default thermostat for new user
-    const thermostat = await Thermostat.create()
-    thermostat.setUser(user)
+    const thermostat = await Thermostat.create();
+    thermostat.setUser(user);
     // encodes userData
     const token = await encode(userData);
     // returns userData for frontEnd, and token to be stored in localStorage
@@ -57,8 +57,20 @@ userRouter.post("/login", async (req, res) => {
   }
 });
 
-userRouter.post("/:user_id/thermostat/:id", async (req, res) => {
-  console.log('thermostat api')
-})
+userRouter.post("/:user_id/thermostat", async (req, res) => {
+  console.log("thermostat api");
+  const user = await User.findOne({ where: { id: req.body.userId } });
+  const thermostat = await user.getThermostat();
+  const thermostatData = {
+    isCooling: thermostat.cooling,
+    isHeating: thermostat.heating,
+    isIdle: thermostat.idle,
+    isOn: thermostat.on,
+    temp: thermostat.temperature,
+    id: thermostat.id,
+    userId: thermostat.userId,
+  }
+  res.json(thermostatData);
+});
 
 module.exports = userRouter;
