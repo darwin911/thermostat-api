@@ -6,7 +6,7 @@ import Thermostat from "./components/Thermostat";
 import { register, login } from "./services/api-helper";
 import decode from "jwt-decode";
 import { withRouter } from "react-router-dom";
-// import "semantic-ui-css/semantic.min.css";
+import "semantic-ui-css/semantic.min.css";
 
 class App extends React.Component {
   constructor(props) {
