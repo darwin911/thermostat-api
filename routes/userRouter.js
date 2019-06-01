@@ -57,4 +57,8 @@ userRouter.post("/login", async (req, res) => {
   }
 });
 
+userRouter.post("/:user_id/thermostat/:id", async (req, res) => {
+  console.log('thermostat api')
+})
+
 module.exports = userRouter;

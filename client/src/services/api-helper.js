@@ -13,4 +13,9 @@ const login = async (data) => {
   return resp.data
 }
 
-export { register, login };
+const setTemp = async (data) => {
+  const resp = await api.post(`${baseURL}/users/${data.userId}/thermostat`, data);
+  return resp.data;
+}
+
+export { register, login, setTemp };
