@@ -10,6 +10,7 @@ const Register = ({ handleChange, handleSubmit, formData }) => {
         onChange={handleChange}
         value={formData.name}
         placeholder="Name"
+        autoComplete="name"
         required
       />
 
@@ -19,6 +20,7 @@ const Register = ({ handleChange, handleSubmit, formData }) => {
         onChange={handleChange}
         value={formData.email}
         placeholder="Email"
+        autoComplete="email"
         required
       />
       <input
@@ -27,6 +29,7 @@ const Register = ({ handleChange, handleSubmit, formData }) => {
         onChange={handleChange}
         value={formData.password}
         placeholder="Password"
+        autoComplete="current-password"
         required
       />
       <input
@@ -35,6 +38,7 @@ const Register = ({ handleChange, handleSubmit, formData }) => {
         onChange={handleChange}
         value={formData.verificationCode}
         placeholder="Verification Code"
+        autoComplete="current-password"
         required
       />
       <button>Submit</button>

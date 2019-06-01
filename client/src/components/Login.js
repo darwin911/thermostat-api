@@ -10,6 +10,7 @@ const Login = ({ handleChange, handleLogin, formData }) => {
         onChange={handleChange}
         value={formData.email}
         placeholder="Email"
+        autoComplete="email"
         required
       />
       <input
@@ -18,6 +19,7 @@ const Login = ({ handleChange, handleLogin, formData }) => {
         onChange={handleChange}
         value={formData.password}
         placeholder="Password"
+        autoComplete="current-password"
         required
       />
       <button>Submit</button>
