@@ -27,6 +27,14 @@ class App extends React.Component {
         email: "",
         password: "",
         verificationCode: ""
+      },
+      thermostat: {
+        temp: null,
+        isHeating: false,
+        isCooling: false,
+        isOn: false,
+        isIdle: false,
+        roomTemp: 74
       }
     };
   }
@@ -101,7 +109,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { formData, isLoggedIn } = this.state;
+    const { formData, isLoggedIn, currentUser } = this.state;
     return (
       <div className="App">
         <header>
@@ -121,7 +129,7 @@ class App extends React.Component {
             />
           </>
         ) : (
-          <p>Welcome!</p>
+          <p>Welcome {currentUser.name.split(" ")[0]}!</p>
         )}
       </div>
     );
