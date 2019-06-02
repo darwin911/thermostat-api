@@ -17,3 +17,13 @@
 - Auth via token (again, can be hardcoded string)
 - Temperature adjustment should be reflected on the front end.
 - Spec Sheet (NOT A SHOLE SHEET) for the endpoint and how a user can interact with it.
+
+## Setup and Usage
+
+- git clone https://github.com/darwin911/thermostat-api
+- create a database `thermostat`
+- in root directory `npm i`, `node server` or `npm run dev` (development)
+- navigate to client directory `cd client`
+- run `npm i` and `npm start`
+
+- Register with verification code : `ilovebikes`
