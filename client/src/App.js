@@ -3,6 +3,7 @@ import "./App.css";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Thermostat from "./components/Thermostat";
+import Controls from "./components/Controls";
 import { register, login, setTemp } from "./services/api-helper";
 import decode from "jwt-decode";
 import { withRouter } from "react-router-dom";
@@ -18,6 +19,9 @@ class App extends React.Component {
     this.toggleHeating = this.toggleHeating.bind(this);
     this.toggleCooling = this.toggleCooling.bind(this);
     this.toggleOn = this.toggleOn.bind(this);
+
+    this.increaseTemp = this.increaseTemp.bind(this);
+    this.lowerTemp = this.lowerTemp.bind(this);
 
     this.state = {
       isLoggedIn: false,
@@ -117,8 +121,14 @@ class App extends React.Component {
     }
   }
 
-  toggleHeating() {
-    const { thermostat } = this.state;
+  async toggleHeating() {
+    const { thermostat, currentUser } = this.state;
+    
+    await setTemp({
+      userId: currentUser.id,
+      isHeating: !thermostat.isHeating
+    });
+
     if (thermostat.isOn) {
       this.setState(prevState => {
         if (thermostat.isCooling) {
@@ -126,9 +136,9 @@ class App extends React.Component {
             thermostat: {
               ...prevState.thermostat,
               isHeating: !thermostat.isHeating,
-              isCooling: false,
+              isCooling: false
             }
-          }
+          };
         }
         return {
           thermostat: {
@@ -140,8 +150,15 @@ class App extends React.Component {
     }
   }
 
-  toggleCooling() {
-    const { thermostat } = this.state;
+  async toggleCooling() {
+    const { thermostat, currentUser } = this.state;
+    
+    await setTemp({
+      userId: currentUser.id,
+      isCooling: !thermostat.isCooling,
+      isHeating: thermostat.isHeating ? false : true
+    });
+
     if (thermostat.isOn) {
       this.setState(prevState => {
         if (thermostat.isHeating) {
@@ -172,8 +189,34 @@ class App extends React.Component {
     }));
   }
 
+  async lowerTemp() {
+    await setTemp({
+      userId: this.state.currentUser.id,
+      temp: this.state.thermostat.temp - 1
+    });
+    this.setState(prevState => ({
+      thermostat: {
+        ...prevState.thermostat,
+        temp: this.state.thermostat.temp - 1
+      }
+    }));
+  }
+
+  async increaseTemp() {
+    await setTemp({
+      userId: this.state.currentUser.id,
+      temp: this.state.thermostat.temp + 1
+    });
+    this.setState(prevState => ({
+      thermostat: {
+        ...prevState.thermostat,
+        temp: this.state.thermostat.temp + 1
+      }
+    }));
+  }
+
   render() {
-    const { formData, isLoggedIn, currentUser, thermostat } = this.state;
+    const { formData, isLoggedIn, thermostat } = this.state;
     return (
       <div className="App">
         <header>
@@ -194,12 +237,15 @@ class App extends React.Component {
           </>
         ) : (
           <main>
-            <p>Welcome {currentUser.name.split(" ")[0]}!</p>
-            <Thermostat
+            {/* <p>Welcome {currentUser.name.split(" ")[0]}!</p> */}
+            <Thermostat thermostat={thermostat} />
+            <Controls
               thermostat={thermostat}
-              toggleHeating={this.toggleHeating}
               toggleCooling={this.toggleCooling}
+              toggleHeating={this.toggleHeating}
               toggleOn={this.toggleOn}
+              lowerTemp={this.lowerTemp}
+              increaseTemp={this.increaseTemp}
             />
           </main>
         )}
