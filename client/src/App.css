@@ -134,7 +134,7 @@ header h1 {
   border-radius: 10px;
 }
 
-.controls button {
+.control-btn {
   background: none;
   color: #222;
   font-family: inherit;
@@ -151,7 +151,7 @@ header h1 {
   transition: opacity 125ms ease-out, color 125ms ease-out;
 }
 
-.controls button:disabled {
+.control-btn:disabled {
   opacity: 0;
 }
 
@@ -170,5 +170,9 @@ header h1 {
 
 .powerOn {
   color: greenyellow !important;
+}
+
+.minus-temp, .add-temp {
+  color: white;
 }
 /*# sourceMappingURL=App.css.map */
