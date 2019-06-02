@@ -1,6 +1,7 @@
 const express = require("express");
 const { User, Thermostat } = require("../models");
 const { hash, compare, encode, verify } = require("../auth");
+const restrict = require("../middleware/restrict");
 
 const userRouter = express.Router();
 
@@ -57,7 +58,7 @@ userRouter.post("/login", async (req, res) => {
   }
 });
 
-userRouter.post("/:user_id/thermostat", async (req, res) => {
+userRouter.post("/:user_id/thermostat", restrict, async (req, res) => {
   console.log("thermostat api");
   const user = await User.findOne({ where: { id: req.body.userId } });
   const thermostat = await user.getThermostat();

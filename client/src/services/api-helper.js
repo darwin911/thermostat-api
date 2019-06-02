@@ -1,20 +1,26 @@
 import axios from 'axios';
 
-const api = axios;
-const baseURL = "http://localhost:3001"
+const BASE_URL = "http://localhost:3001/"
+const token = "YouLearnMoreFromFailureThanFromSuccess"
+const api = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'Authorization': `Bearer ${token}`,
+  }
+});
 
 const register = async (data) => {
-  const resp = await api.post(`${baseURL}/users/register`, data);
+  const resp = await api.post(`users/register`, data);
   return resp.data
 }
 
 const login = async (data) => {
-  const resp = await api.post(`${baseURL}/users/login`, data);
+  const resp = await api.post(`users/login`, data);
   return resp.data
 }
 
 const setTemp = async (data) => {
-  const resp = await api.post(`${baseURL}/users/${data.userId}/thermostat`, data);
+  const resp = await api.post(`users/${data.userId}/thermostat`, data);
   return resp.data;
 }
 
