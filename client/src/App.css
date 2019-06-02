@@ -91,6 +91,7 @@ header h1 {
 }
 
 .display .status {
+  font-weight: bold;
   position: absolute;
   color: white;
   top: 15%;
