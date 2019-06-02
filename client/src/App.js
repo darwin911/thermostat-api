@@ -146,7 +146,7 @@ class App extends React.Component {
       await setTemp({
         userId: currentUser.id,
         isHeating: !thermostat.isHeating,
-        isCooling: thermostat.isCooling ? false : true
+        isCooling: false
       });
     }
   }
@@ -174,7 +174,7 @@ class App extends React.Component {
       await setTemp({
         userId: currentUser.id,
         isCooling: !thermostat.isCooling,
-        isHeating: thermostat.isHeating ? false : true
+        isHeating: false
       });
     }
   }
