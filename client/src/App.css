@@ -58,8 +58,8 @@ header h1 {
 }
 
 .display {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   color: white;
   display: -webkit-box;
@@ -117,10 +117,10 @@ header h1 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+      -ms-flex-direction: row;
+          flex-direction: row;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -128,7 +128,7 @@ header h1 {
       -ms-flex-align: center;
           align-items: center;
   padding: 2rem 0;
-  width: 200px;
+  width: 95%;
   margin: 0 auto;
   border: 6px solid #444;
   border-radius: 10px;

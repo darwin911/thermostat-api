@@ -12,12 +12,6 @@ const Controls = ({
   return (
     <aside className="controls">
       <button
-        className={(thermostat.isOn ? "powerOn" : "") + " control-btn"}
-        onClick={toggleOn}
-      >
-        <Icon name="power off" />
-      </button>
-      <button
         className={(thermostat.isHeating ? "heating" : "") + " control-btn"}
         onClick={toggleHeating}
         disabled={!thermostat.isOn}
@@ -30,6 +24,12 @@ const Controls = ({
         disabled={!thermostat.isOn}
       >
         <Icon name="snowflake" />
+      </button>
+      <button
+        className={(thermostat.isOn ? "powerOn" : "") + " control-btn"}
+        onClick={toggleOn}
+      >
+        <Icon name="power off" />
       </button>
       <button
         className={(thermostat.isOn ? "minus-temp" : "") + " control-btn"}
@@ -46,7 +46,7 @@ const Controls = ({
         <Icon name="plus" />
       </button>
 
-      <p className="">{thermostat.isIdle ? "idle" : "---"}</p>
+      {/* <p className="">{thermostat.isIdle ? "idle" : "---"}</p> */}
     </aside>
   );
 };
