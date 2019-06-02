@@ -59,15 +59,14 @@ userRouter.post("/login", async (req, res) => {
 });
 
 userRouter.post("/:user_id/thermostat", restrict, async (req, res) => {
-  console.log("thermostat api");
   const user = await User.findOne({ where: { id: req.body.userId } });
   const thermostat = await user.getThermostat();
-  await thermostat.update({ 
+  await thermostat.update({
     temperature: req.body.temp,
     heating: req.body.isHeating,
     cooling: req.body.isCooling,
-    on: req.body.isOn,
-   });
+    on: req.body.isOn
+  });
   const thermostatData = {
     isCooling: thermostat.cooling,
     isHeating: thermostat.heating,
