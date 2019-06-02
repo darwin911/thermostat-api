@@ -123,11 +123,6 @@ class App extends React.Component {
 
   async toggleHeating() {
     const { thermostat, currentUser } = this.state;
-    
-    await setTemp({
-      userId: currentUser.id,
-      isHeating: !thermostat.isHeating
-    });
 
     if (thermostat.isOn) {
       this.setState(prevState => {
@@ -147,18 +142,17 @@ class App extends React.Component {
           }
         };
       });
+
+      await setTemp({
+        userId: currentUser.id,
+        isHeating: !thermostat.isHeating,
+        isCooling: thermostat.isCooling ? false : true
+      });
     }
   }
 
   async toggleCooling() {
     const { thermostat, currentUser } = this.state;
-    
-    await setTemp({
-      userId: currentUser.id,
-      isCooling: !thermostat.isCooling,
-      isHeating: thermostat.isHeating ? false : true
-    });
-
     if (thermostat.isOn) {
       this.setState(prevState => {
         if (thermostat.isHeating) {
@@ -176,6 +170,11 @@ class App extends React.Component {
             isCooling: !thermostat.isCooling
           }
         };
+      });
+      await setTemp({
+        userId: currentUser.id,
+        isCooling: !thermostat.isCooling,
+        isHeating: thermostat.isHeating ? false : true
       });
     }
   }
