@@ -17,9 +17,10 @@ class App extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.toggleHeating = this.toggleHeating.bind(this);
     this.toggleCooling = this.toggleCooling.bind(this);
+    this.toggleOn = this.toggleOn.bind(this);
 
     this.state = {
-      isLoggedin: false,
+      isLoggedIn: false,
       currentUser: {
         id: "",
         name: "",
@@ -117,19 +118,32 @@ class App extends React.Component {
   }
 
   toggleHeating() {
-    this.setState(prevState => ({
-      thermostat: {
-        ...prevState.thermostat,
-        isHeating: !this.state.thermostat.isHeating
-      }
-    }));
+    if (this.state.thermostat.isOn) {
+      this.setState(prevState => ({
+        thermostat: {
+          ...prevState.thermostat,
+          isHeating: !this.state.thermostat.isHeating
+        }
+      }));
+    }
   }
 
   toggleCooling() {
+    if (this.state.thermostat.isOn) {
+      this.setState(prevState => ({
+        thermostat: {
+          ...prevState.thermostat,
+          isCooling: !this.state.thermostat.isCooling
+        }
+      }));
+    }
+  }
+
+  toggleOn() {
     this.setState(prevState => ({
       thermostat: {
         ...prevState.thermostat,
-        isCooling: !this.state.thermostat.isCooling
+        isOn: !this.state.thermostat.isOn
       }
     }));
   }
@@ -161,6 +175,7 @@ class App extends React.Component {
               thermostat={thermostat}
               toggleHeating={this.toggleHeating}
               toggleCooling={this.toggleCooling}
+              toggleOn={this.toggleOn}
             />
           </main>
         )}

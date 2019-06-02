@@ -1,22 +1,27 @@
 import React from "react";
+import { Icon } from "semantic-ui-react";
 
-const Controls = ({ thermostat, toggleCooling, toggleHeating }) => {
+const Controls = ({ thermostat, toggleCooling, toggleHeating, toggleOn }) => {
   return (
     <aside className="controls">
       <button
         className={thermostat.isHeating ? "heating" : ""}
         onClick={toggleHeating}
+        disabled={!thermostat.isOn}
       >
-        Heating
+        <Icon name="fire" />
       </button>
       <button
         className={thermostat.isCooling ? "cooling" : ""}
         onClick={toggleCooling}
+        disabled={!thermostat.isOn}
       >
-        Cooling
+        <Icon name="snowflake" />
       </button>
-      <button>{thermostat.isOn ? "On" : "Off"}</button>
-      <p>{thermostat.isIdle ? "idle" : "---"}</p>
+      <button className={thermostat.isOn ? "powerOn" : ""} onClick={toggleOn}>
+        <Icon name="power off" />
+      </button>
+      <p className="">{thermostat.isIdle ? "idle" : "---"}</p>
     </aside>
   );
 };

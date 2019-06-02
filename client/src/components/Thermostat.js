@@ -3,7 +3,7 @@ import Controls from "./Controls";
 
 class Thermostat extends React.Component {
   render() {
-    const { thermostat, toggleCooling, toggleHeating } = this.props;
+    const { thermostat, toggleCooling, toggleHeating, toggleOn } = this.props;
     return (
       <section className="thermostat">
         <article className="display">
@@ -18,6 +18,7 @@ class Thermostat extends React.Component {
           thermostat={thermostat}
           toggleCooling={toggleCooling}
           toggleHeating={toggleHeating}
+          toggleOn={toggleOn}
         />
       </section>
     );
