@@ -179,13 +179,17 @@ class App extends React.Component {
     }
   }
 
-  toggleOn() {
+  async toggleOn() {
     this.setState(prevState => ({
       thermostat: {
         ...prevState.thermostat,
         isOn: !this.state.thermostat.isOn
       }
     }));
+    await setTemp({
+      userId: this.state.currentUser.id,
+      isOn: !this.state.thermostat.isOn
+    });
   }
 
   async lowerTemp() {
