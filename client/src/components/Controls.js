@@ -4,6 +4,9 @@ import { Icon } from "semantic-ui-react";
 const Controls = ({ thermostat, toggleCooling, toggleHeating, toggleOn }) => {
   return (
     <aside className="controls">
+      <button className={thermostat.isOn ? "powerOn" : ""} onClick={toggleOn}>
+        <Icon name="power off" />
+      </button>
       <button
         className={thermostat.isHeating ? "heating" : ""}
         onClick={toggleHeating}
@@ -17,9 +20,6 @@ const Controls = ({ thermostat, toggleCooling, toggleHeating, toggleOn }) => {
         disabled={!thermostat.isOn}
       >
         <Icon name="snowflake" />
-      </button>
-      <button className={thermostat.isOn ? "powerOn" : ""} onClick={toggleOn}>
-        <Icon name="power off" />
       </button>
       <p className="">{thermostat.isIdle ? "idle" : "---"}</p>
     </aside>

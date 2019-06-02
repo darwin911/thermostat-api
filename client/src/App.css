@@ -145,17 +145,14 @@ header h1 {
   margin-bottom: 0.75rem;
   width: 6rem;
   height: 6rem;
-  border: 3px solid #aaa;
   cursor: pointer;
   outline-style: none;
-  -webkit-transition: background 175ms ease;
-  transition: background 175ms ease;
+  -webkit-transition: opacity 125ms ease-out, color 125ms ease-out;
+  transition: opacity 125ms ease-out, color 125ms ease-out;
 }
 
 .controls button:disabled {
-  background: #aaa;
-  cursor: default;
-  color: #999;
+  opacity: 0;
 }
 
 .heating,
@@ -168,7 +165,7 @@ header h1 {
 }
 
 .cooling {
-  color: blue !important;
+  color: #00ccff !important;
 }
 
 .powerOn {

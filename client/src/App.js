@@ -118,24 +118,48 @@ class App extends React.Component {
   }
 
   toggleHeating() {
-    if (this.state.thermostat.isOn) {
-      this.setState(prevState => ({
-        thermostat: {
-          ...prevState.thermostat,
-          isHeating: !this.state.thermostat.isHeating
+    const { thermostat } = this.state;
+    if (thermostat.isOn) {
+      this.setState(prevState => {
+        if (thermostat.isCooling) {
+          return {
+            thermostat: {
+              ...prevState.thermostat,
+              isHeating: !thermostat.isHeating,
+              isCooling: false,
+            }
+          }
         }
-      }));
+        return {
+          thermostat: {
+            ...prevState.thermostat,
+            isHeating: !thermostat.isHeating
+          }
+        };
+      });
     }
   }
 
   toggleCooling() {
-    if (this.state.thermostat.isOn) {
-      this.setState(prevState => ({
-        thermostat: {
-          ...prevState.thermostat,
-          isCooling: !this.state.thermostat.isCooling
+    const { thermostat } = this.state;
+    if (thermostat.isOn) {
+      this.setState(prevState => {
+        if (thermostat.isHeating) {
+          return {
+            thermostat: {
+              ...prevState.thermostat,
+              isCooling: !thermostat.isCooling,
+              isHeating: false
+            }
+          };
         }
-      }));
+        return {
+          thermostat: {
+            ...prevState.thermostat,
+            isCooling: !thermostat.isCooling
+          }
+        };
+      });
     }
   }
 

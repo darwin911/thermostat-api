@@ -117,18 +117,15 @@ header {
     margin-bottom: 0.75rem;
     width: 6rem;
     height: 6rem;
-    border: 3px solid #aaa;
     cursor: pointer;
     outline-style: none;
-    transition: background 175ms ease;
+    transition: opacity 125ms ease-out, color 125ms ease-out;
   }
 }
 
 
 .controls button:disabled {
-  background: #aaa;
-  cursor: default;
-  color: #999;
+    opacity: 0;
 }
 
 .heating,
@@ -141,7 +138,7 @@ header {
 }
 
 .cooling {
-  color: blue !important;
+  color: rgb(0, 204, 255) !important;
 }
 
 .powerOn {
