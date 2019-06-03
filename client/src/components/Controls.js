@@ -45,8 +45,6 @@ const Controls = ({
       >
         <Icon name="plus" />
       </button>
-
-      {/* <p className="">{thermostat.isIdle ? "idle" : "---"}</p> */}
     </aside>
   );
 };

@@ -74,7 +74,7 @@ userRouter.post("/:user_id/thermostat", restrict, async (req, res) => {
     where: { user_id: req.params.user_id }
   });
   await thermostat.update({
-    temperature: req.body.temp,
+    temperature: req.body.temp || req.query.temp,
     heating: req.body.isHeating,
     cooling: req.body.isCooling,
     idle: req.body.isIdle,
