@@ -21,9 +21,14 @@ const login = async data => {
   return resp.data;
 };
 
-const setTemp = async data => {
+const setThermostat = async data => {
   const resp = await api.post(`users/${data.userId}/thermostat`, data);
   return resp.data;
 };
 
-export { register, login, setTemp };
+const getThermostat = async data => {
+  const resp = await api.get(`users/${data.userId}/thermostat`);
+  return resp.data;
+};
+
+export { register, login, setThermostat, getThermostat };
