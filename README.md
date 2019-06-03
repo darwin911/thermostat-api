@@ -6,6 +6,7 @@
 - User completes sign up with email and password
 
 ## Functions
+
 - Set setpoint temperature
 - Set heating, cooling, off, or auto
 - Display room temperature
@@ -27,3 +28,58 @@
 - run `npm i` and `npm start`
 
 - Register with verification code : `ilovebikes`
+
+- `https://smart-thermostat.herokuapp.com/users/:user_id/thermostat/`
+
+## **Smart Thermostat API**
+
+- **URL**
+
+  /users/:user_id/thermostat/
+
+- **Method:**
+
+  `GET` | `POST`
+
+- **URL Params**
+
+  `:user_id`
+
+- **Data Params**
+
+  ```
+  {
+    temperature: req.body.temp,
+    heating: req.body.isHeating,
+    cooling: req.body.isCooling,
+    idle: req.body.isIdle,
+    on: req.body.isOn
+  }
+  ```
+
+- **Sample Call:**
+
+  ```
+  POST /users/1/thermostat
+
+    data {
+      userId: 1,
+      temp: 78
+      };
+  ```
+
+  returns
+
+  ```
+    thermostat: {
+      cooling: true
+      createdAt: "2019-06-03T00:35:58.821Z"
+      heating: false
+      id: 1
+      idle: false
+      on: true
+      temperature: 78
+      updatedAt: "2019-06-03T20:34:50.250Z"
+      userId: 1
+    }
+  ```
