@@ -254,7 +254,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { formData, isLoggedIn, thermostat } = this.state;
+    const { formData, isLoggedIn, thermostat, roomTemp } = this.state;
     return (
       <div className="App">
         <header>
@@ -298,7 +298,7 @@ class App extends React.Component {
         ) : (
           <main>
             {/* <p>Welcome {currentUser.name.split(" ")[0]}!</p> */}
-            <Thermostat thermostat={thermostat} />
+            <Thermostat thermostat={thermostat} roomTemp={roomTemp} />
             <Controls
               thermostat={thermostat}
               toggleCooling={this.toggleCooling}
