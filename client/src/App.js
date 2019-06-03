@@ -4,7 +4,13 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Thermostat from "./components/Thermostat";
 import Controls from "./components/Controls";
-import { register, login, setTemp } from "./services/api-helper";
+import {
+  register,
+  login,
+  setThermostat,
+  //eslint-disable-next-line
+  getThermostat
+} from "./services/api-helper";
 import decode from "jwt-decode";
 import { withRouter } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
@@ -52,7 +58,7 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.loadData();
   }
 
@@ -60,7 +66,7 @@ class App extends React.Component {
     const token = localStorage.getItem("token");
     if (token) {
       const currentUser = await decode(token);
-      const thermostat = await setTemp({ userId: currentUser.id });
+      const thermostat = await setThermostat({ userId: currentUser.id });
       this.setState({
         currentUser,
         isLoggedIn: true,
@@ -166,7 +172,7 @@ class App extends React.Component {
         };
       });
 
-      await setTemp({
+      await setThermostat({
         userId: currentUser.id,
         isHeating: !thermostat.isHeating,
         isCooling: false,
@@ -205,7 +211,7 @@ class App extends React.Component {
           }
         };
       });
-      await setTemp({
+      await setThermostat({
         userId: currentUser.id,
         isCooling: !thermostat.isCooling,
         isHeating: false,
@@ -221,14 +227,14 @@ class App extends React.Component {
         isOn: !this.state.thermostat.isOn
       }
     }));
-    await setTemp({
+    await setThermostat({
       userId: this.state.currentUser.id,
       isOn: !this.state.thermostat.isOn
     });
   }
 
   async lowerTemp() {
-    await setTemp({
+    await setThermostat({
       userId: this.state.currentUser.id,
       temp: this.state.thermostat.temp - 1
     });
@@ -241,7 +247,7 @@ class App extends React.Component {
   }
 
   async increaseTemp() {
-    await setTemp({
+    await setThermostat({
       userId: this.state.currentUser.id,
       temp: this.state.thermostat.temp + 1
     });
@@ -297,7 +303,6 @@ class App extends React.Component {
           </>
         ) : (
           <main>
-            {/* <p>Welcome {currentUser.name.split(" ")[0]}!</p> */}
             <Thermostat thermostat={thermostat} roomTemp={roomTemp} />
             <Controls
               thermostat={thermostat}
