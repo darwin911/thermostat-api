@@ -9,6 +9,7 @@ import decode from "jwt-decode";
 import { withRouter } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import { Link, Route } from "react-router-dom";
+import { Button } from "semantic-ui-react";
 
 class App extends React.Component {
   constructor(props) {
@@ -257,7 +258,7 @@ class App extends React.Component {
         <header>
           <h1>Thermostat API</h1>
 
-          {isLoggedIn && <button onClick={this.handleLogout}>Logout</button>}
+          {isLoggedIn && <Button size="mini" compact={true} onClick={this.handleLogout}>Logout</Button>}
         </header>
         {!isLoggedIn ? (
           <>

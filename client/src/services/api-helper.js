@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3001/";
+// const BASE_URL = "http://localhost:3001/";
+const BASE_URL = "https://smart-thermostat.herokuapp.com/";
 const token = "YouLearnMoreFromFailureThanFromSuccess";
 
 const api = axios.create({

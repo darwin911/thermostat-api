@@ -1,11 +1,11 @@
 import React from "react";
-// import { Button, Form, Input } from "semantic-ui-react";
+import { Button, Input, Form } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 const Login = ({ handleChange, handleLogin, formData }) => {
   return (
-    <form className="register" onSubmit={handleLogin}>
-      <input
+    <Form className="login" onSubmit={handleLogin}>
+      <Input
         type="email"
         name="email"
         onChange={handleChange}
@@ -14,7 +14,7 @@ const Login = ({ handleChange, handleLogin, formData }) => {
         autoComplete="email"
         required
       />
-      <input
+      <Input
         type="password"
         name="password"
         onChange={handleChange}
@@ -23,10 +23,9 @@ const Login = ({ handleChange, handleLogin, formData }) => {
         autoComplete="current-password"
         required
       />
-      <button>Log In</button>
-      or
-      <Link to="/register">Register</Link>
-    </form>
+      <Button color="teal">Log In</Button>
+      or <Link to="/register">Register</Link>
+    </Form>
   );
 };
 

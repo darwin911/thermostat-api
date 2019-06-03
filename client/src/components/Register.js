@@ -1,11 +1,11 @@
 import React from "react";
-// import { Button, Form, Input } from "semantic-ui-react";
+import { Button, Form, Input } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 const Register = ({ handleChange, handleSubmit, formData }) => {
   return (
-    <form className="register" onSubmit={handleSubmit}>
-      <input
+    <Form className="register" onSubmit={handleSubmit}>
+      <Input
         type="text"
         name="name"
         onChange={handleChange}
@@ -15,7 +15,7 @@ const Register = ({ handleChange, handleSubmit, formData }) => {
         required
       />
 
-      <input
+      <Input
         type="email"
         name="email"
         onChange={handleChange}
@@ -24,7 +24,7 @@ const Register = ({ handleChange, handleSubmit, formData }) => {
         autoComplete="email"
         required
       />
-      <input
+      <Input
         type="password"
         name="password"
         onChange={handleChange}
@@ -33,7 +33,7 @@ const Register = ({ handleChange, handleSubmit, formData }) => {
         autoComplete="current-password"
         required
       />
-      <input
+      <Input
         type="text"
         name="verificationCode"
         onChange={handleChange}
@@ -42,10 +42,10 @@ const Register = ({ handleChange, handleSubmit, formData }) => {
         autoComplete="current-password"
         required
       />
-      <button>Register</button>
-      or
+      <Button color="green">Register</Button>
+      or 
       <Link to="login">Log In</Link>
-    </form>
+    </Form>
   );
 };
 
