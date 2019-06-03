@@ -8,6 +8,7 @@ import { register, login, setTemp } from "./services/api-helper";
 import decode from "jwt-decode";
 import { withRouter } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
+import { Link, Route } from "react-router-dom";
 
 class App extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
     this.toggleHeating = this.toggleHeating.bind(this);
     this.toggleCooling = this.toggleCooling.bind(this);
     this.toggleOn = this.toggleOn.bind(this);
@@ -39,7 +41,7 @@ class App extends React.Component {
       thermostat: {
         userId: "",
         id: "",
-        temp: "",
+        temp: 68,
         isHeating: false,
         isCooling: false,
         isOn: false,
@@ -49,14 +51,20 @@ class App extends React.Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.loadData();
+  }
+
+  async loadData() {
     const token = localStorage.getItem("token");
     if (token) {
       const currentUser = await decode(token);
-      this.setState({ currentUser, isLoggedIn: true });
       const thermostat = await setTemp({ userId: currentUser.id });
-      console.log(thermostat);
-      this.setState({ thermostat });
+      this.setState({
+        currentUser,
+        isLoggedIn: true,
+        thermostat
+      });
     } else {
       this.props.history.push("/");
     }
@@ -104,13 +112,8 @@ class App extends React.Component {
       const { formData } = this.state;
       const resp = await login(formData);
       localStorage.setItem("token", resp.token);
+      this.loadData();
       this.setState({
-        isLoggedIn: true,
-        currentUser: {
-          name: resp.userData.name,
-          emai: resp.userData.email,
-          id: resp.userData.id
-        },
         formData: {
           email: "",
           password: ""
@@ -119,6 +122,13 @@ class App extends React.Component {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  handleLogout() {
+    localStorage.removeItem("token");
+    this.setState({
+      isLoggedIn: false
+    });
   }
 
   async toggleHeating() {
@@ -192,7 +202,6 @@ class App extends React.Component {
           }
         };
       });
-      console.log(thermostat.isCooling)
       await setTemp({
         userId: currentUser.id,
         isCooling: !thermostat.isCooling,
@@ -247,18 +256,36 @@ class App extends React.Component {
       <div className="App">
         <header>
           <h1>Thermostat API</h1>
+
+          {isLoggedIn && <button onClick={this.handleLogout}>Logout</button>}
         </header>
         {!isLoggedIn ? (
           <>
-            <Login
-              formData={formData}
-              handleChange={this.handleChange}
-              handleLogin={this.handleLogin}
+            <Route
+              exact
+              path="/"
+              component={() => <Link to="/login">Login</Link>}
             />
-            <Register
-              formData={formData}
-              handleChange={this.handleChange}
-              handleSubmit={this.handleSubmit}
+            <Route
+              path="/login"
+              render={() => (
+                <Login
+                  formData={formData}
+                  handleChange={this.handleChange}
+                  handleLogin={this.handleLogin}
+                />
+              )}
+            />
+
+            <Route
+              path="/register"
+              render={() => (
+                <Register
+                  formData={formData}
+                  handleChange={this.handleChange}
+                  handleSubmit={this.handleSubmit}
+                />
+              )}
             />
           </>
         ) : (

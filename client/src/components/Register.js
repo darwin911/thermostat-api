@@ -1,5 +1,6 @@
 import React from "react";
 // import { Button, Form, Input } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 const Register = ({ handleChange, handleSubmit, formData }) => {
   return (
@@ -41,7 +42,9 @@ const Register = ({ handleChange, handleSubmit, formData }) => {
         autoComplete="current-password"
         required
       />
-      <button>Submit</button>
+      <button>Register</button>
+      or
+      <Link to="login">Log In</Link>
     </form>
   );
 };
