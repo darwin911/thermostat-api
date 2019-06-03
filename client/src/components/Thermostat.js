@@ -3,23 +3,15 @@ import React from "react";
 class Thermostat extends React.Component {
   render() {
     const { thermostat } = this.props;
+
     return (
       <section className="thermostat">
         <article className="display">
           {thermostat.isOn && (
             <>
-              <p
-                className="status"
-                style={
-                  thermostat.isCooling
-                    ? { color: "#00ccff" }
-                    : { color: "orangered" }
-                }
-              >
-                {thermostat.isCooling ? "Cooling" : ""}
-                {thermostat.isHeating ? "Heating" : ""}
-                {thermostat.isIdle ? "Idle" : ""}
-              </p>
+              {thermostat.isCooling && <p className="status cooling">Cooling</p>}
+              {thermostat.isHeating && <p className="status heating">Heating</p>}
+              {thermostat.isIdle && <p className="status">Auto</p>}
               <p className="temp">{thermostat.temp}</p>
             </>
           )}

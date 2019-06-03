@@ -77,7 +77,6 @@ header {
   .status {
     font-weight: bold;
     position: absolute;
-    color: white;
     top: 15%;
     left: 0;
     right: 0;
@@ -136,15 +135,15 @@ header {
 }
 
 .heating {
-  color: red !important;
+  color: orangered;
 }
 
 .cooling {
-  color: rgb(0, 204, 255) !important;
+  color: #00ccff;
 }
 
 .powerOn {
-  color: greenyellow !important;
+  color: greenyellow;
 }
 
 .minus-temp, .add-temp {

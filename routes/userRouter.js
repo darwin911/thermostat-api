@@ -65,6 +65,7 @@ userRouter.post("/:user_id/thermostat", restrict, async (req, res) => {
     temperature: req.body.temp,
     heating: req.body.isHeating,
     cooling: req.body.isCooling,
+    idle: req.body.isIdle,
     on: req.body.isOn
   });
   const thermostatData = {
@@ -76,6 +77,7 @@ userRouter.post("/:user_id/thermostat", restrict, async (req, res) => {
     id: thermostat.id,
     userId: thermostat.userId
   };
+  console.log('Is Idle: ', thermostatData.isIdle)
   res.json(thermostatData);
 });
 

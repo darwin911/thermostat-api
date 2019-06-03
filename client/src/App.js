@@ -43,7 +43,7 @@ class App extends React.Component {
         isHeating: false,
         isCooling: false,
         isOn: false,
-        isIdle: false
+        isIdle: true
       },
       roomTemp: 74
     };
@@ -131,14 +131,24 @@ class App extends React.Component {
             thermostat: {
               ...prevState.thermostat,
               isHeating: !thermostat.isHeating,
-              isCooling: false
+              isCooling: false,
+              isIdle: false
+            }
+          };
+        } else if (!thermostat.isCooling && thermostat.isHeating) {
+          return {
+            thermostat: {
+              ...prevState.thermostat,
+              isHeating: false,
+              isIdle: true
             }
           };
         }
         return {
           thermostat: {
             ...prevState.thermostat,
-            isHeating: !thermostat.isHeating
+            isHeating: !thermostat.isHeating,
+            isIdle: false
           }
         };
       });
@@ -146,7 +156,8 @@ class App extends React.Component {
       await setTemp({
         userId: currentUser.id,
         isHeating: !thermostat.isHeating,
-        isCooling: false
+        isCooling: false,
+        isIdle: thermostat.isHeating ? true : false
       });
     }
   }
@@ -160,21 +171,33 @@ class App extends React.Component {
             thermostat: {
               ...prevState.thermostat,
               isCooling: !thermostat.isCooling,
-              isHeating: false
+              isHeating: false,
+              isIdle: false
+            }
+          };
+        } else if (!thermostat.isHeating && thermostat.isCooling) {
+          return {
+            thermostat: {
+              ...prevState.thermostat,
+              isCooling: false,
+              isIdle: true
             }
           };
         }
         return {
           thermostat: {
             ...prevState.thermostat,
-            isCooling: !thermostat.isCooling
+            isCooling: !thermostat.isCooling,
+            isIdle: false
           }
         };
       });
+      console.log(thermostat.isCooling)
       await setTemp({
         userId: currentUser.id,
         isCooling: !thermostat.isCooling,
-        isHeating: false
+        isHeating: false,
+        isIdle: thermostat.isCooling ? true : false
       });
     }
   }
