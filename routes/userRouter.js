@@ -33,7 +33,7 @@ userRouter.post("/register", async (req, res) => {
     // returns userData for frontEnd, and token to be stored in localStorage
     res.json({ userData, token });
   } else {
-    res.json({ error: "invalid verification code" });
+    res.json({ error: "Invalid verification code" });
   }
 });
 
@@ -58,9 +58,21 @@ userRouter.post("/login", async (req, res) => {
   }
 });
 
+userRouter.get("/:user_id/thermostat", restrict, async (req, res) => {
+  const thermostat = await Thermostat.findOne({
+    where: { user_id: req.params.user_id }
+  });
+  if (thermostat) {
+    res.status(200).json({ thermostat });
+  } else {
+    res.status(404).json({ err: "Thermostat not found" });
+  }
+});
+
 userRouter.post("/:user_id/thermostat", restrict, async (req, res) => {
-  const user = await User.findOne({ where: { id: req.body.userId } });
-  const thermostat = await user.getThermostat();
+  const thermostat = await Thermostat.findOne({
+    where: { user_id: req.params.user_id }
+  });
   await thermostat.update({
     temperature: req.body.temp,
     heating: req.body.isHeating,
@@ -77,7 +89,6 @@ userRouter.post("/:user_id/thermostat", restrict, async (req, res) => {
     id: thermostat.id,
     userId: thermostat.userId
   };
-  console.log('Is Idle: ', thermostatData.isIdle)
   res.json(thermostatData);
 });
 
