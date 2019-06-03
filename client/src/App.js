@@ -98,7 +98,7 @@ class App extends React.Component {
         isLoggedIn: true,
         currentUser: {
           name: resp.userData.name,
-          emai: resp.userData.email,
+          email: resp.userData.email,
           id: resp.userData.id
         },
         formData: {
