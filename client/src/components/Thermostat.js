@@ -18,14 +18,19 @@ class Thermostat extends React.Component {
               )}
               {thermostat.isIdle && <p className="status">Auto</p>}
               <p className="temp">{thermostat.temp}</p>
+              <span
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  right: 0,
+                  bottom: "15%"
+                }}
+              >
+                <Icon name="thermometer half" />
+                {roomTemp} &deg;
+              </span>
             </>
           )}
-          <span
-            style={{ position: "absolute", left: 0, right: 0, bottom: "15%" }}
-          >
-            <Icon name="thermometer half" />
-            {roomTemp} &deg;
-          </span>
         </article>
       </section>
     );
