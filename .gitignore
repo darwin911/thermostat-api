@@ -2,3 +2,5 @@
 .DS_STORE
 .env
 /client/src/App.css.map
+
+/.netlify
