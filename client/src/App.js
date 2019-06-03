@@ -102,6 +102,7 @@ class App extends React.Component {
           verificationCode: ""
         }
       });
+      this.props.history.push("/");
     } catch (error) {
       console.log(error);
     }
@@ -120,6 +121,7 @@ class App extends React.Component {
           password: ""
         }
       });
+      this.props.history.push("/");
     } catch (error) {
       console.log(error);
     }
@@ -258,7 +260,11 @@ class App extends React.Component {
         <header>
           <h1>Thermostat API</h1>
 
-          {isLoggedIn && <Button size="mini" compact={true} onClick={this.handleLogout}>Logout</Button>}
+          {isLoggedIn && (
+            <Button size="mini" compact={true} onClick={this.handleLogout}>
+              Logout
+            </Button>
+          )}
         </header>
         {!isLoggedIn ? (
           <>
