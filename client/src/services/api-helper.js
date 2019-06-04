@@ -21,13 +21,13 @@ const login = async data => {
   return resp.data;
 };
 
-const setThermostat = async data => {
-  const resp = await api.post(`users/${data.userId}/thermostat`, data);
+const getThermostat = async data => {
+  const resp = await api.get(`users/${data.userId}/thermostat`);
   return resp.data;
 };
 
-const getThermostat = async data => {
-  const resp = await api.get(`users/${data.userId}/thermostat`);
+const setThermostat = async data => {
+  const resp = await api.post(`users/${data.userId}/thermostat`, data);
   return resp.data;
 };
 
