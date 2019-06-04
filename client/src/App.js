@@ -63,18 +63,36 @@ class App extends React.Component {
   }
 
   async loadData() {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const currentUser = await decode(token);
-      const thermostat = await setThermostat({ userId: currentUser.id });
-      this.setState({
-        currentUser,
-        isLoggedIn: true,
-        thermostat
-      });
-    } else {
-      this.props.history.push("/");
-    }
+
+    // const token = localStorage.getItem("token");
+    // if (token) {
+    //   const currentUser = await decode(token);
+    //   const thermostat = await getThermostat({ userId: currentUser.id });
+    //   console.log(thermostat)
+    //   this.setState({
+    //     currentUser,
+    //     isLoggedIn: true,
+    //     thermostat
+    //   });
+    // } else {
+    //   this.props.history.push("/");
+    // }
+
+    setInterval(async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const currentUser = await decode(token);
+        const thermostat = await getThermostat({ userId: currentUser.id });
+        console.log("getThermostat: ", thermostat)
+        this.setState({
+          currentUser,
+          isLoggedIn: true,
+          thermostat
+        });
+      } else {
+        this.props.history.push("/");
+      }
+    }, 5000)
   }
 
   handleChange(e) {
@@ -302,18 +320,18 @@ class App extends React.Component {
             />
           </>
         ) : (
-          <main>
-            <Thermostat thermostat={thermostat} roomTemp={roomTemp} />
-            <Controls
-              thermostat={thermostat}
-              toggleCooling={this.toggleCooling}
-              toggleHeating={this.toggleHeating}
-              toggleOn={this.toggleOn}
-              lowerTemp={this.lowerTemp}
-              increaseTemp={this.increaseTemp}
-            />
-          </main>
-        )}
+            <main>
+              <Thermostat thermostat={thermostat} roomTemp={roomTemp} />
+              <Controls
+                thermostat={thermostat}
+                toggleCooling={this.toggleCooling}
+                toggleHeating={this.toggleHeating}
+                toggleOn={this.toggleOn}
+                lowerTemp={this.lowerTemp}
+                increaseTemp={this.increaseTemp}
+              />
+            </main>
+          )}
       </div>
     );
   }
