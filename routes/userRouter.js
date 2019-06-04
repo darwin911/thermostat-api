@@ -73,6 +73,7 @@ userRouter.post("/:user_id/thermostat", restrict, async (req, res) => {
   const thermostat = await Thermostat.findOne({
     where: { user_id: req.params.user_id }
   });
+
   await thermostat.update({
     temperature: req.body.temp,
     heating: req.body.isHeating,

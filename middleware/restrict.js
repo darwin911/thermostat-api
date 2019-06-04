@@ -3,6 +3,7 @@ const string = "YouLearnMoreFromFailureThanFromSuccess";
 const restrict = (req, res, next) => {
   console.log("restrict called");
   const authorizationHeader = req.headers.authorization;
+  console.log(authorizationHeader);
   let token;
   if (authorizationHeader) {
     token = authorizationHeader.split(" ")[1];
@@ -11,6 +12,8 @@ const restrict = (req, res, next) => {
     } else {
       res.status(401).json({ error: "Failed to authenticate" });
     }
+  } else {
+    res.status(401).json({ error: "Failed to authenticate" });
   }
   next();
 };
