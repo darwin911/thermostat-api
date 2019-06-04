@@ -1,12 +1,14 @@
 const express = require("express");
+const app = express();
+
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const cors = require("cors");
-const userRouter = require("./routes/userRouter");
 
+const userRouter = require("./routes/userRouter");
 const PORT = process.env.PORT || 3001;
 
-const app = express();
+const expressWs = require('express-ws')(app);
 
 app.use(cors());
 app.use(logger("dev"));
