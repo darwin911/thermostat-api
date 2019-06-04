@@ -39,33 +39,47 @@
 
 - **Method:**
 
-  `GET` | `POST`
+  `GET`
+  You can use the `GET` route by calling with the correct user id and will return the current state of that users thermostat.
+
+  `POST`
+  For the `POST` route you need to pass an object (refereced below) with the setting you'd like to change.
 
 - **URL Params**
 
   `:user_id`
 
-- **Data Params**
+  This URL param will be set by the front end.
 
+- **Request Body **
+
+  the request body should look like this, depending on which setting the user is setting 
   ```
   {
-    temperature: req.body.temp,
-    heating: req.body.isHeating,
-    cooling: req.body.isCooling,
-    idle: req.body.isIdle,
-    on: req.body.isOn
+    temp: 90,
+    isHeating: false,
+    isCooling: true,
+    isIdle: false,
+    isOn: true,
   }
   ```
+
+  ![request_body](./request_body.png)
+
+  Headers need to be set as follows: 
+
+  Authorization: Bearer 
+  ![headers](./headers.png)
 
 - **Sample Call:**
 
   ```
   POST /users/1/thermostat
 
-    data {
-      userId: 1,
-      temp: 78
-      };
+      {
+        temp: 78,
+        isOn: false
+      }
   ```
 
   returns
@@ -77,7 +91,7 @@
       heating: false
       id: 1
       idle: false
-      on: true
+      on: false
       temperature: 78
       updatedAt: "2019-06-03T20:34:50.250Z"
       userId: 1
