@@ -68,7 +68,7 @@
 
   Headers need to be set as follows: 
 
-  Authorization: Bearer 
+  Authorization: Bearer YouLearnMoreFromFailureThanFromSuccess
   ![headers](./headers.png)
 
 - **Sample Call:**
