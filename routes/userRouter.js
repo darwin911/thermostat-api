@@ -72,7 +72,7 @@ userRouter.get("/:user_id/thermostat", restrict, async (req, res) => {
       id: thermostat.id,
       userId: thermostat.userId
     };
-    console.log(thermostatData)
+    console.log(thermostatData);
     res.status(200).json(thermostatData);
   } else {
     res.status(404).json({ err: "Thermostat not found" });
@@ -100,7 +100,7 @@ userRouter.post("/:user_id/thermostat", restrict, async (req, res) => {
     id: thermostat.id,
     userId: thermostat.userId
   };
-  console.log(thermostatData)
+  console.log(thermostatData);
   res.json(thermostatData);
 });
 
