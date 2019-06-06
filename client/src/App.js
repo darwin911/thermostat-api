@@ -63,20 +63,22 @@ class App extends React.Component {
   }
 
   async loadData() {
-    setInterval(async () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const currentUser = await decode(token);
-        const thermostat = await getThermostat({ userId: currentUser.id });
-        this.setState({
-          currentUser,
-          isLoggedIn: true,
-          thermostat
-        });
-      } else {
-        this.props.history.push("/");
-      }
-    }, 5000);
+    if (this.state.isLoggedIn) {
+      setInterval(async () => {
+        const token = localStorage.getItem("token");
+        if (token) {
+          const currentUser = await decode(token);
+          const thermostat = await getThermostat({ userId: currentUser.id });
+          this.setState({
+            currentUser,
+            isLoggedIn: true,
+            thermostat
+          });
+        } else {
+          this.props.history.push("/");
+        }
+      }, 5000);
+    }
   }
 
   handleChange(e) {
