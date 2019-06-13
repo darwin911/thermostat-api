@@ -61,6 +61,9 @@ class App extends React.Component {
         isLoggedIn: true,
         thermostat
       });
+      this.props.history.push(
+        `/users/${currentUser.id}/thermostat/${thermostat.id}`
+      );
     } else {
       this.props.history.push("/login");
     }
@@ -127,125 +130,52 @@ class App extends React.Component {
     this.setState({
       isLoggedIn: false
     });
+    this.props.history.push("/login");
   };
 
   toggleHeating = async () => {
-    const { thermostat, currentUser } = this.state;
-
-    if (thermostat.isOn) {
-      this.setState(prevState => {
-        if (thermostat.isCooling) {
-          return {
-            thermostat: {
-              ...prevState.thermostat,
-              isHeating: !thermostat.isHeating,
-              isCooling: false,
-              isIdle: false
-            }
-          };
-        } else if (!thermostat.isCooling && thermostat.isHeating) {
-          return {
-            thermostat: {
-              ...prevState.thermostat,
-              isHeating: false,
-              isIdle: true
-            }
-          };
-        }
-        return {
-          thermostat: {
-            ...prevState.thermostat,
-            isHeating: !thermostat.isHeating,
-            isIdle: false
-          }
-        };
-      });
-
-      await setThermostat({
-        userId: currentUser.id,
-        isHeating: !thermostat.isHeating,
-        isCooling: false,
-        isIdle: thermostat.isHeating ? true : false
-      });
-    }
+    const { currentUser } = this.state;
+    const thermostat = await setThermostat({
+      userId: currentUser.id,
+      isHeating: !this.state.thermostat.isHeating,
+      isCooling: false,
+      isIdle: this.state.thermostat.isHeating ? true : false
+    });
+    this.setState({ thermostat });
   };
 
   toggleCooling = async () => {
-    const { thermostat, currentUser } = this.state;
-    if (thermostat.isOn) {
-      this.setState(prevState => {
-        if (thermostat.isHeating) {
-          return {
-            thermostat: {
-              ...prevState.thermostat,
-              isCooling: !thermostat.isCooling,
-              isHeating: false,
-              isIdle: false
-            }
-          };
-        } else if (!thermostat.isHeating && thermostat.isCooling) {
-          return {
-            thermostat: {
-              ...prevState.thermostat,
-              isCooling: false,
-              isIdle: true
-            }
-          };
-        }
-        return {
-          thermostat: {
-            ...prevState.thermostat,
-            isCooling: !thermostat.isCooling,
-            isIdle: false
-          }
-        };
-      });
-      await setThermostat({
-        userId: currentUser.id,
-        isCooling: !thermostat.isCooling,
-        isHeating: false,
-        isIdle: thermostat.isCooling ? true : false
-      });
-    }
+    const thermostat = await setThermostat({
+      userId: this.state.currentUser.id,
+      isCooling: !this.state.thermostat.isCooling,
+      isHeating: false,
+      isIdle: this.state.thermostat.isCooling ? true : false
+    });
+    this.setState({ thermostat });
   };
 
   toggleOn = async () => {
-    this.setState(prevState => ({
-      thermostat: {
-        ...prevState.thermostat,
-        isOn: !this.state.thermostat.isOn
-      }
-    }));
-    await setThermostat({
+    const thermostat = await setThermostat({
       userId: this.state.currentUser.id,
       isOn: !this.state.thermostat.isOn
     });
+    this.setState({ thermostat });
   };
 
   lowerTemp = async () => {
-    await setThermostat({
+    const thermostat = await setThermostat({
       userId: this.state.currentUser.id,
       temp: this.state.thermostat.temp - 1
     });
-    this.setState(prevState => ({
-      thermostat: {
-        ...prevState.thermostat,
-        temp: this.state.thermostat.temp - 1
-      }
-    }));
+    this.setState({ thermostat });
   };
 
   increaseTemp = async () => {
-    await setThermostat({
+    const thermostat = await setThermostat({
       userId: this.state.currentUser.id,
       temp: this.state.thermostat.temp + 1
     });
-    this.setState(prevState => ({
-      thermostat: {
-        ...prevState.thermostat,
-        temp: this.state.thermostat.temp + 1
-      }
-    }));
+    this.setState({ thermostat });
   };
 
   render() {
