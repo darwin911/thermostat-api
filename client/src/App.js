@@ -21,17 +21,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-    this.toggleHeating = this.toggleHeating.bind(this);
-    this.toggleCooling = this.toggleCooling.bind(this);
-    this.toggleOn = this.toggleOn.bind(this);
-
-    this.increaseTemp = this.increaseTemp.bind(this);
-    this.lowerTemp = this.lowerTemp.bind(this);
-
     this.state = {
       isLoggedIn: false,
       currentUser: {
@@ -62,26 +51,22 @@ class App extends React.Component {
     this.loadData();
   }
 
-  async loadData() {
-    if (this.state.isLoggedIn) {
-      setInterval(async () => {
-        const token = localStorage.getItem("token");
-        if (token) {
-          const currentUser = await decode(token);
-          const thermostat = await getThermostat({ userId: currentUser.id });
-          this.setState({
-            currentUser,
-            isLoggedIn: true,
-            thermostat
-          });
-        } else {
-          this.props.history.push("/");
-        }
-      }, 5000);
+  loadData = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const currentUser = await decode(token);
+      const thermostat = await getThermostat({ userId: currentUser.id });
+      this.setState({
+        currentUser,
+        isLoggedIn: true,
+        thermostat
+      });
+    } else {
+      this.props.history.push("/login");
     }
-  }
+  };
 
-  handleChange(e) {
+  handleChange = e => {
     const { name, value } = e.target;
     this.setState(prevState => ({
       formData: {
@@ -89,9 +74,9 @@ class App extends React.Component {
         [name]: value
       }
     }));
-  }
+  };
 
-  async handleSubmit(e) {
+  handleSubmit = async e => {
     e.preventDefault();
     try {
       const { formData } = this.state;
@@ -116,9 +101,9 @@ class App extends React.Component {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  async handleLogin(e) {
+  handleLogin = async e => {
     e.preventDefault();
     try {
       const { formData } = this.state;
@@ -131,20 +116,20 @@ class App extends React.Component {
           password: ""
         }
       });
-      this.props.history.push("/");
+      this.props.history.push("/thermostat");
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  handleLogout() {
+  handleLogout = () => {
     localStorage.removeItem("token");
     this.setState({
       isLoggedIn: false
     });
-  }
+  };
 
-  async toggleHeating() {
+  toggleHeating = async () => {
     const { thermostat, currentUser } = this.state;
 
     if (thermostat.isOn) {
@@ -183,9 +168,9 @@ class App extends React.Component {
         isIdle: thermostat.isHeating ? true : false
       });
     }
-  }
+  };
 
-  async toggleCooling() {
+  toggleCooling = async () => {
     const { thermostat, currentUser } = this.state;
     if (thermostat.isOn) {
       this.setState(prevState => {
@@ -222,9 +207,9 @@ class App extends React.Component {
         isIdle: thermostat.isCooling ? true : false
       });
     }
-  }
+  };
 
-  async toggleOn() {
+  toggleOn = async () => {
     this.setState(prevState => ({
       thermostat: {
         ...prevState.thermostat,
@@ -235,9 +220,9 @@ class App extends React.Component {
       userId: this.state.currentUser.id,
       isOn: !this.state.thermostat.isOn
     });
-  }
+  };
 
-  async lowerTemp() {
+  lowerTemp = async () => {
     await setThermostat({
       userId: this.state.currentUser.id,
       temp: this.state.thermostat.temp - 1
@@ -248,9 +233,9 @@ class App extends React.Component {
         temp: this.state.thermostat.temp - 1
       }
     }));
-  }
+  };
 
-  async increaseTemp() {
+  increaseTemp = async () => {
     await setThermostat({
       userId: this.state.currentUser.id,
       temp: this.state.thermostat.temp + 1
@@ -261,7 +246,7 @@ class App extends React.Component {
         temp: this.state.thermostat.temp + 1
       }
     }));
-  }
+  };
 
   render() {
     const { formData, isLoggedIn, thermostat, roomTemp } = this.state;
