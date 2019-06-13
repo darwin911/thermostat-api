@@ -23,7 +23,7 @@ const Login = ({ handleChange, handleLogin, formData }) => {
         autoComplete="current-password"
         required
       />
-      <Button color="teal">Log In</Button>
+      <Button secondary>Log In</Button>
       or <Link to="/register">Register</Link>
     </Form>
   );

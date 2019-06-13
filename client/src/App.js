@@ -8,14 +8,20 @@ import {
   register,
   login,
   setThermostat,
-  //eslint-disable-next-line
   getThermostat
 } from "./services/api-helper";
 import decode from "jwt-decode";
 import { withRouter } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import { Link, Route } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import {
+  Segment,
+  Menu,
+  Header,
+  Container,
+  Button,
+  Grid
+} from "semantic-ui-react";
 
 class App extends React.Component {
   constructor(props) {
@@ -181,59 +187,76 @@ class App extends React.Component {
   render() {
     const { formData, isLoggedIn, thermostat, roomTemp } = this.state;
     return (
-      <div className="App">
-        <header>
-          <h1>Thermostat API</h1>
+      <Segment className="App">
+        <Grid
+          container
+          stackable
+          verticalAlign="middle"
+          style={{ marginTop: 52 }}
+        >
+          <Grid.Row>
+            <Menu fixed={"top"} size="large" inverted>
+              <Container>
+                {isLoggedIn && (
+                  <>
+                    <Menu.Item as="a" active>
+                      Home
+                    </Menu.Item>
+                    <Menu.Item position="right">
+                      <Button as="a" onClick={this.handleLogout} inverted>
+                        Logout
+                      </Button>
+                    </Menu.Item>
+                  </>
+                )}
+              </Container>
+            </Menu>
 
-          {isLoggedIn && (
-            <Button size="mini" compact={true} onClick={this.handleLogout}>
-              Logout
-            </Button>
-          )}
-        </header>
-        {!isLoggedIn ? (
-          <>
-            <Route
-              exact
-              path="/"
-              component={() => <Link to="/login">Login</Link>}
-            />
-            <Route
-              path="/login"
-              render={() => (
-                <Login
-                  formData={formData}
-                  handleChange={this.handleChange}
-                  handleLogin={this.handleLogin}
+            {!isLoggedIn ? (
+              <>
+                <Route
+                  exact
+                  path="/"
+                  component={() => <Link to="/login">Login</Link>}
                 />
-              )}
-            />
+                <Route
+                  path="/login"
+                  render={() => (
+                    <Login
+                      formData={formData}
+                      handleChange={this.handleChange}
+                      handleLogin={this.handleLogin}
+                    />
+                  )}
+                />
 
-            <Route
-              path="/register"
-              render={() => (
-                <Register
-                  formData={formData}
-                  handleChange={this.handleChange}
-                  handleSubmit={this.handleSubmit}
+                <Route
+                  path="/register"
+                  render={() => (
+                    <Register
+                      formData={formData}
+                      handleChange={this.handleChange}
+                      handleSubmit={this.handleSubmit}
+                    />
+                  )}
                 />
-              )}
-            />
-          </>
-        ) : (
-          <main>
-            <Thermostat thermostat={thermostat} roomTemp={roomTemp} />
-            <Controls
-              thermostat={thermostat}
-              toggleCooling={this.toggleCooling}
-              toggleHeating={this.toggleHeating}
-              toggleOn={this.toggleOn}
-              lowerTemp={this.lowerTemp}
-              increaseTemp={this.increaseTemp}
-            />
-          </main>
-        )}
-      </div>
+              </>
+            ) : (
+              <Grid.Column as="main">
+                <Thermostat thermostat={thermostat} roomTemp={roomTemp} />
+                <Controls
+                  thermostat={thermostat}
+                  toggleCooling={this.toggleCooling}
+                  toggleHeating={this.toggleHeating}
+                  toggleOn={this.toggleOn}
+                  lowerTemp={this.lowerTemp}
+                  increaseTemp={this.increaseTemp}
+                />
+              </Grid.Column>
+            )}
+          </Grid.Row>
+        </Grid>
+      </Segment>
     );
   }
 }

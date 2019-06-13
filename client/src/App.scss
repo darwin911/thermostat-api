@@ -15,17 +15,10 @@ body {
 .App {
   text-align: center;
   min-height: 100vh;
-  background: #f9f8eb;
 }
 
-header {
-  padding: 2rem 0;
-  h1 {
-    margin: 0;
-  }
-}
-
-.register, .login {
+.register,
+.login {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -33,7 +26,8 @@ header {
   max-width: 90%;
 }
 
-.register div.input, .login div.input {
+.register div.input,
+.login div.input {
   margin-bottom: 0.5rem;
 }
 
@@ -102,7 +96,6 @@ header {
   margin: 0 auto;
   border: 6px solid #444;
   border-radius: 10px;
-
 }
 
 .control-btn {
@@ -122,7 +115,7 @@ header {
 }
 
 .control-btn:disabled {
-    opacity: 0;
+  opacity: 0;
 }
 
 .heating,
@@ -142,6 +135,7 @@ header {
   color: greenyellow;
 }
 
-.minus-temp, .add-temp {
+.minus-temp,
+.add-temp {
   color: white;
 }
