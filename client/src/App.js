@@ -241,6 +241,12 @@ class App extends React.Component {
             </>
           ) : (
             <Grid.Column>
+              <Header
+                as="h1"
+                style={{ color: "white", fontWeight: 800, fontSize: "3.5rem" }}
+              >
+                Smart Thermostat
+              </Header>
               <Thermostat thermostat={thermostat} roomTemp={roomTemp} />
               <Controls
                 thermostat={thermostat}
