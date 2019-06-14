@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input, Form } from "semantic-ui-react";
+import { Button, ButtonGroup, Input, Form } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 const Login = ({ handleChange, handleLogin, formData }) => {
@@ -23,8 +23,13 @@ const Login = ({ handleChange, handleLogin, formData }) => {
         autoComplete="current-password"
         required
       />
-      <Button secondary>Log In</Button>
-      or <Link to="/register">Register</Link>
+      <ButtonGroup>
+        <Button primary>Log In</Button>
+        <Button.Or />
+        <Button as={Link} to="/register">
+          Register
+        </Button>
+      </ButtonGroup>
     </Form>
   );
 };

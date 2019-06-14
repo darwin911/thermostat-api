@@ -187,76 +187,73 @@ class App extends React.Component {
   render() {
     const { formData, isLoggedIn, thermostat, roomTemp } = this.state;
     return (
-      <Segment className="App">
-        <Grid
-          container
-          stackable
-          verticalAlign="middle"
-          style={{ marginTop: 52 }}
-        >
-          <Grid.Row>
-            <Menu fixed={"top"} size="large" inverted>
-              <Container>
-                {isLoggedIn && (
-                  <>
-                    <Menu.Item as="a" active>
-                      Home
-                    </Menu.Item>
-                    <Menu.Item position="right">
-                      <Button as="a" onClick={this.handleLogout} inverted>
-                        Logout
-                      </Button>
-                    </Menu.Item>
-                  </>
-                )}
-              </Container>
-            </Menu>
+      <Grid stackable verticalAlign="middle" columns={1} className="App">
+        <Grid.Row verticalAlign="center">
+          <Menu fixed={"top"} size="large" inverted>
+            <Container>
+              {isLoggedIn && (
+                <>
+                  <Menu.Item as="a" active>
+                    Home
+                  </Menu.Item>
+                  <Menu.Item position="right">
+                    <Button as="a" onClick={this.handleLogout} inverted>
+                      Logout
+                    </Button>
+                  </Menu.Item>
+                </>
+              )}
+            </Container>
+          </Menu>
 
-            {!isLoggedIn ? (
-              <>
-                <Route
-                  exact
-                  path="/"
-                  component={() => <Link to="/login">Login</Link>}
-                />
-                <Route
-                  path="/login"
-                  render={() => (
+          {!isLoggedIn ? (
+            <>
+              <Route
+                exact
+                path="/"
+                component={() => <Link to="/login">Login</Link>}
+              />
+              <Route
+                path="/login"
+                render={() => (
+                  <Grid.Column verticalAlign="center">
                     <Login
                       formData={formData}
                       handleChange={this.handleChange}
                       handleLogin={this.handleLogin}
                     />
-                  )}
-                />
+                  </Grid.Column>
+                )}
+              />
 
-                <Route
-                  path="/register"
-                  render={() => (
+              <Route
+                path="/register"
+                render={() => (
+                  <Grid.Column verticalAlign="center">
                     <Register
                       formData={formData}
                       handleChange={this.handleChange}
                       handleSubmit={this.handleSubmit}
                     />
-                  )}
-                />
-              </>
-            ) : (
-              <Grid.Column as="main">
-                <Thermostat thermostat={thermostat} roomTemp={roomTemp} />
-                <Controls
-                  thermostat={thermostat}
-                  toggleCooling={this.toggleCooling}
-                  toggleHeating={this.toggleHeating}
-                  toggleOn={this.toggleOn}
-                  lowerTemp={this.lowerTemp}
-                  increaseTemp={this.increaseTemp}
-                />
-              </Grid.Column>
-            )}
-          </Grid.Row>
-        </Grid>
-      </Segment>
+                  </Grid.Column>
+                )}
+              />
+            </>
+          ) : (
+            <Grid.Column>
+              <Thermostat thermostat={thermostat} roomTemp={roomTemp} />
+              <Controls
+                thermostat={thermostat}
+                toggleCooling={this.toggleCooling}
+                toggleHeating={this.toggleHeating}
+                toggleOn={this.toggleOn}
+                lowerTemp={this.lowerTemp}
+                increaseTemp={this.increaseTemp}
+              />
+            </Grid.Column>
+          )}
+        </Grid.Row>
+      </Grid>
     );
   }
 }
