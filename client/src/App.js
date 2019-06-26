@@ -14,14 +14,7 @@ import decode from "jwt-decode";
 import { withRouter } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import { Link, Route } from "react-router-dom";
-import {
-  Segment,
-  Menu,
-  Header,
-  Container,
-  Button,
-  Grid
-} from "semantic-ui-react";
+import { Menu, Header, Container, Button, Grid } from "semantic-ui-react";
 
 class App extends React.Component {
   constructor(props) {
@@ -55,6 +48,7 @@ class App extends React.Component {
 
   async componentDidMount() {
     this.loadData();
+    setInterval(this.loadData, 8000);
   }
 
   loadData = async () => {
@@ -188,7 +182,7 @@ class App extends React.Component {
     const { formData, isLoggedIn, thermostat, roomTemp } = this.state;
     return (
       <Grid stackable verticalAlign="middle" columns={1} className="App">
-        <Grid.Row verticalAlign="center">
+        <Grid.Row verticalAlign="middle">
           <Menu fixed={"top"} size="large" inverted>
             <Container>
               {isLoggedIn && (
